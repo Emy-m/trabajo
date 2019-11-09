@@ -1,0 +1,43 @@
+<div class="ingreso" *ngIf="significacion != null">
+    <p>Ingrese los datos correspondientes en las casillas de abajo para hallar el intervalo de confianza y contrastar la hipotesis.</p>
+    <div *ngIf="esZ()">
+        <input type="number" [(ngModel)]="this.servicio.desv_Pob" placeholder="Desviacion Pob." class="asd"/>    
+        <input type="number" [(ngModel)]="this.servicio.media_Pob" placeholder="Media Poblacional" class="asd"/>    
+        <input type="number" [(ngModel)]="this.servicio.media_M" placeholder="Media Muestral" class="asd"/>
+        <input type="number" [(ngModel)]="this.servicio.tamanio_M" placeholder="Tamaño Muestral" class="asd"/>
+        <p>Hipotesis alternativa:</p>
+        <label class="container"><
+            <input type="radio" [(ngModel)]="this.servicio.h_alternativa" value="<" checked class="asd_r">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">!=
+            <input type="radio" [(ngModel)]="this.servicio.h_alternativa" value="!=" checked class="asd_r">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">>
+            <input type="radio" [(ngModel)]="this.servicio.h_alternativa" value=">" checked class="asd_r">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+    
+    <div *ngIf="!esZ()">
+        <input type="number" [(ngModel)]="this.servicio.desv_M" placeholder="Desviacion Muestral" class="asd"/>    
+        <input type="number" [(ngModel)]="this.servicio.media_Pob" placeholder="Media Poblacional" class="asd"/>    
+        <input type="number" [(ngModel)]="this.servicio.media_M" placeholder="Media Muestral" class="asd"/>
+        <input type="number" [(ngModel)]="this.servicio.tamanio_M" placeholder="Tamaño Muestral" class="asd"/>
+        <p>Hipotesis alternativa:</p>
+        <label class="container"><
+            <input type="radio" [(ngModel)]="this.servicio.h_alternativa" value="<" checked class="asd_r">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">!=
+            <input type="radio" [(ngModel)]="this.servicio.h_alternativa" value="!=" checked class="asd_r">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">>
+            <input type="radio" [(ngModel)]="this.servicio.h_alternativa" value=">" checked class="asd_r">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+</div>

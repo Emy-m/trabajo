@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ValoresService } from './valores.service';
+import { Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'matematica';
+
+  constructor(public servicio: ValoresService) { }
+
+  ngOnInit() {
+
+  }
+
+  distro(){
+    return this.servicio.distribucion;
+  }
+
+
 }
