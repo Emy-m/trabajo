@@ -45,6 +45,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "baseHref": "https://emy-m.github.io/trabajo/",
               "budgets": [
                 {
                   "type": "initial",
