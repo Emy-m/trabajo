@@ -1,7 +1,14 @@
-<div class="resultados" *ngIf="completo()">
+<div class="resultados confianza" *ngIf="completo()">
     <p>h0: u {{this.servicio.h_nula}} {{this.servicio.media_Pob}}</p>
     <p>h1: u {{this.servicio.h_alternativa}} {{this.servicio.media_Pob}}</p>
     <p>Significacion = {{significacion}}</p>
     <p>Intervalo: {{resultado}}</p>
     <p>Conclusion: {{conclusion}}</p>
+</div>
+
+<div class="resultados lateralidad" *ngIf="completo()">
+    <p>Intervalo de aceptacion de h0</p>
+    <p>{{intervaloEstadistico}}</p>
+    <p>Valor del estadistico: {{valorEstadistico}}</p>
+    <p>{{conclusionEstadistico}}</p>
 </div>

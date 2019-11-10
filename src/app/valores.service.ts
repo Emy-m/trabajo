@@ -18,8 +18,12 @@ export class ValoresService {
   lim_superior: number;
   resultado: Subject<string> = new Subject<string>();
   conclusion: Subject<string> = new Subject<string>();
+  resultadoEstadistico: Subject<string> = new Subject<string>();
+  conclusionEstadistico: Subject<string> = new Subject<string>();
   h_nula: string;
   h_alternativa: string = null;
+  lateralidad: boolean = false; // indica bilateral si es true, unilateral si es false
+  estadistico: Subject<number> = new Subject<number>();
 
   constructor() { }
 
@@ -45,12 +49,15 @@ export class ValoresService {
   poner(){
     if(this.h_alternativa == "<"){
       this.h_nula = ">=";
+      this.lateralidad = false;
     }
     else if(this.h_alternativa == ">"){
       this.h_nula = "<=";
+      this.lateralidad = false;
     }
     else if(this.h_alternativa == "!="){
       this.h_nula = "=";
+      this.lateralidad = true;
     }
   }
 
@@ -86,6 +93,48 @@ export class ValoresService {
     this.intervalo();
     this.resultado.next("( " + this.lim_inferior.toFixed(2) + "; " + this.lim_superior.toFixed(2) + " )");
     this.concluir();
+  }
+
+  intervalearEstadistico(valor: number){
+    let estadistico: number;
+    if(this.distribucion){ // es distribucion z
+      estadistico = ((this.media_M - this.media_Pob) / (this.desv_Pob / Math.sqrt(this.tamanio_M)));
+      this.estadistico.next(estadistico);
+    }
+    else{ // es distribucion t
+      estadistico = ((this.media_M - this.media_Pob) / (this.desv_M / Math.sqrt(this.tamanio_M)));
+      this.estadistico.next(estadistico);
+    }
+
+    //this.estadistico.toFixed(2);
+
+    if(this.h_alternativa == "<"){ // es unilateral
+      this.resultadoEstadistico.next("( -" + valor + "; " + " infinito )");
+      if(estadistico >= -valor){
+        this.conclusionEstadistico.next("Se acepta la hipotesis nula porque el estadistico esta dentro del intervalo de aceptacion.")
+      }
+      else{
+        this.conclusionEstadistico.next("Se rechaza la hipotesis nula porque el estadistico esta fuera del intervalo de aceptacion.");
+      }
+    }
+    else if(this.h_alternativa == ">"){ // es unilateral
+      this.resultadoEstadistico.next("( -infinito " + "; " + valor + " )");
+      if(estadistico <= valor){
+        this.conclusionEstadistico.next("Se acepta la hipotesis nula porque el estadistico esta dentro del intervalo de aceptacion.");
+      }
+      else{
+        this.conclusionEstadistico.next("Se rechaza la hipotesis nula porque el estadistico esta fuera del intervalo de aceptacion.");
+      }
+    }
+    else{ // es bilateral
+      this.resultadoEstadistico.next("( -" + valor + "; " + valor + " )");
+      if(estadistico >= -valor && estadistico <= valor){
+        this.conclusionEstadistico.next("Se acepta la hipotesis nula porque el estadistico esta dentro del intervalo de aceptacion.");
+      }
+      else{
+        this.conclusionEstadistico.next("Se rechaza la hipotesis nula porque el estadistico esta fuera del intervalo de aceptacion.");
+      }
+    }
   }
 
 }
