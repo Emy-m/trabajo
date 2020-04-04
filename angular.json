@@ -121,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "matematica"
+    }
+  },
+  "defaultProject": "matematica",
+  "cli": {
+    "analytics": false
+  }
 }
